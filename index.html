@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bardic Inspiration Roller</title>
+
+<style>
+    body {
+        background: #f4f4f4;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 2rem 1rem;
+    }
+
+    h1 {
+        margin-bottom: 1rem;
+    }
+
+    .dice-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
+
+    button {
+        padding: 1rem 1.5rem;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 8px;
+        background: #333;
+        color: white;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #555;
+    }
+
+    #dice {
+        font-size: 6rem;
+        margin: 2rem 0;
+        min-height: 80px;
+        transition: transform 0.4s ease;
+    }
+
+    footer {
+        margin-top: 3rem;
+        color: #444;
+        font-size: 1rem;
+    }
+
+    #result {
+        font-size: 2rem;
+        margin-top: 1rem;
+        min-height: 40px;
+    }
+</style>
+</head>
+
+<body>
+
+<h1>Bardic Inspiration Roller</h1>
+
+<div class="dice-buttons">
+    <button onclick="rollDice(6)">d6</button>
+    <button onclick="rollDice(8)">d8</button>
+    <button onclick="rollDice(10)">d10</button>
+    <button onclick="rollDice(12)">d12</button>
+</div>
+
+<div id="dice">🎲</div>
+<div id="result"></div>
+
+<!-- Dice Roll Sound -->
+<audio id="rollSound" src="https://assets.mixkit.co/active_storage/sfx/2009/2009-preview.mp3"></audio>
+
+<footer>© Royal Treasury</footer>
+
+<script>
+    function rollDice(sides) {
+        const dice = document.getElementById("dice");
+        const result = document.getElementById("result");
+        const audio = document.getElementById("rollSound");
+
+        // Reset visual state
+        result.textContent = "";
+        dice.style.transform = "rotate(0deg)";
+
+        // Play sound
+        audio.currentTime = 0;
+        audio.play();
+
+        // Spin animation
+        dice.style.transform = "rotate(720deg)";
+
+        // After animation, show result
+        setTimeout(() => {
+            const roll = Math.floor(Math.random() * sides) + 1;
+            dice.style.transform = "rotate(0deg)";  
+            result.textContent = `You rolled: ${roll}`;
+        }, 400); // matches the animation timing
+    }
+</script>
+
+</body>
+</html>
